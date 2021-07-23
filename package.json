@@ -1,0 +1,24 @@
+{
+  "name": "YouTube-Downloader",
+  "version": "0.0.1",
+  "description": "YouTube Video Downloader by Miri",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js"
+  },
+  "keywords": [
+    "Miri",
+    "Downloader",
+    "YouTube"
+  ],
+  "author": "Miri",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^4.1.1",
+    "fs": "0.0.1-security",
+    "moment": "^2.29.1",
+    "nodemon": "^2.0.12",
+    "readline": "^1.3.0",
+    "ytdl-core": "^4.9.0"
+  }
+}
