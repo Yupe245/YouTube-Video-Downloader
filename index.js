@@ -4,6 +4,8 @@ const moment = require('moment');
 const YtdlCore = require('ytdl-core');
 const fs = require('fs');
 
+const Version = require('./package.json').version;
+
 let Tarih = chalk.gray(moment().format("HH:mm:ss YYYY-MM-DD"));
 let Question = chalk.yellow.bold('QUESTION');
 let Err = chalk.red.bold('ERROR');
@@ -13,7 +15,7 @@ let ReadLine = readline.createInterface({
     output: process.stdout
 });
 
-ReadLine.question(Tarih+' '+Question+' Type Video URL to Download.\nAnswer: ', async(Url) => {
+ReadLine.question('Version '+Version+'\n\n'+Tarih+' '+Question+' Type Video URL to Download.\nAnswer: ', async(Url) => {
     if (!Url.match(/^(https?\:\/\/)?((www\.)?youtube\.com|youtu\.?be)\/.+$/)) {
         console.log(Tarih+' '+Err+' The Url You Entered Is Not A YouTube Url!');
         ReadLine.close();
@@ -23,8 +25,13 @@ ReadLine.question(Tarih+' '+Question+' Type Video URL to Download.\nAnswer: ', a
             console.log(Tarih+' '+Err+' The Video Types You Wrote Were Not mp3 Or mp4.');
             ReadLine.close();
         };
-        console.log(Tarih+' '+chalk.green.bold('SUCCESS')+' Video Found, Downloading. When the video downloads by checking the file, you can exit by pressing the Ctrl + C keys.');
-        YtdlCore(Url).pipe(fs.createWriteStream('YouTube Downloader.'+VideoTipi));
+        ReadLine.question(Tarih+' '+Question+' Can you write the name of the video you want to download?\nAnswer: ', async(VideoName) => {
+            console.log(Tarih+' '+chalk.green.bold('SUCCESS')+' Video Found, Downloading.');
+            YtdlCore(Url).pipe(fs.createWriteStream(VideoName+'.'+VideoTipi)).on('finish', async() => {
+                console.log(Tarih+' '+chalk.green.bold('SUCCESS')+' File Downloaded Successfully!')
+                ReadLine.close();
+            });
+        });
     });
 });
 
