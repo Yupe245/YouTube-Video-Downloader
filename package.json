@@ -1,6 +1,6 @@
 {
   "name": "YouTube-Downloader",
-  "version": "0.0.1",
+  "version": "0.1.2",
   "description": "YouTube Video Downloader by Miri",
   "main": "index.js",
   "scripts": {
